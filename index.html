@@ -25,21 +25,21 @@
                 turkish: "Bir proje üzerinde çalışıyorlar.",
                 answers: ["ing", "ed", "ing"],
                 correct: "ing",
-                explanation: "Continuous tense 'are' ile birlikte 'ing' formu kullanılır."
+                explanation: "Şimdiki zaman 'are' ile birlikte 'ing' formu kullanılır."
             },
             { 
                 english: "We are read________ a magazine.", 
                 turkish: "Bir dergi okuyoruz.",
                 answers: ["ing", "s", "es"],
                 correct: "ing",
-                explanation: "Continuous tense 'are' ile birlikte 'ing' formu kullanılır."
+                explanation: "Şimdiki zaman 'are' ile birlikte 'ing' formu kullanılır."
             },
             { 
                 english: "We are talk________ about the movie.", 
                 turkish: "Biz film hakkında konuşuyoruz.",
                 answers: ["s", "ing", "ed"],
                 correct: "ing",
-                explanation: "Continuous tense 'are' ile birlikte 'ing' formu kullanılır."
+                explanation: "Şimdiki zaman 'are' ile birlikte 'ing' formu kullanılır."
             }
         ];
 
@@ -104,9 +104,11 @@
 
         function updateScore() {
             document.getElementById("score").innerHTML = `
-                <span style="color: red; font-weight: bold; font-size: 28px;">Yanlış: ${incorrectCount}</span> / 
-                <span style="color: green; font-weight: bold; font-size: 28px;">Doğru: ${correctCount}</span><br>
-                <span style="color: white; font-weight: bold; font-size: 28px;">Puan: ${score}</span>
+                <div style="text-align: center; border: 2px solid white; padding: 10px; border-radius: 10px;">
+                    <span style="color: red; font-weight: bold; font-size: 28px;">Yanlış: ${incorrectCount}</span> / 
+                    <span style="color: green; font-weight: bold; font-size: 28px;">Doğru: ${correctCount}</span><br>
+                    <span style="color: white; font-weight: bold; font-size: 28px;">Puan: ${score}</span>
+                </div>
             `;
         }
 
@@ -155,6 +157,7 @@
             font-size: 28px; /* %20 küçültüldü */
             margin-bottom: 20px;
             font-weight: bold;
+            text-align: center; /* Ortalamak için */
         }
     </style>
 </head>
