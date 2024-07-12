@@ -33,6 +33,8 @@
         ];
 
         let currentPhraseIndex = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
 
         function loadPhrase() {
             const phrase = phrases[currentPhraseIndex];
@@ -60,15 +62,19 @@
                         document.getElementById("english").innerText = 
                             phrase.english.replace("________", correctAnswer) + " ✅"; // Checkmark
                         document.getElementById("result").innerText = "Doğru!";
+                        correctCount++;
                     } else {
                         btn.style.backgroundColor = "red";
                         document.getElementById("result").innerText = "Yanlış!"; 
                         document.getElementById("english").innerText = 
                             phrase.english.replace("________", selectedAnswer) + " ❌"; // Cross
+                        incorrectCount++;
                     }
                     btn.disabled = true; // Disable all buttons after selection
                 }
             });
+
+            updateScore();
 
             if (selectedAnswer === correctAnswer) {
                 setTimeout(() => {
@@ -80,6 +86,13 @@
                     }
                 }, 1000); // Wait 1 second before loading next phrase
             }
+        }
+
+        function updateScore() {
+            document.getElementById("score").innerHTML = `
+                <span style="color: red;">${incorrectCount}</span> / 
+                <span style="color: green;">${correctCount}</span>
+            `;
         }
 
         window.onload = loadPhrase;
@@ -123,6 +136,10 @@
             border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        #score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -130,6 +147,7 @@
         TACİME ÖZEL<br>
         DERS ÇALIŞMASI
     </h1>
+    <div id="score">0 / 0</div>
     <h2 id="english" class="english">Cümle Burada</h2>
     <h3 id="turkish" class="turkish">Türkçe Çeviri Burada</h3>
     <div>
