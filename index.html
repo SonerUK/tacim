@@ -90,8 +90,8 @@
 
         function updateScore() {
             document.getElementById("score").innerHTML = `
-                <span style="color: red; font-weight: bold; font-size: 36px;">${incorrectCount}</span> / 
-                <span style="color: green; font-weight: bold; font-size: 36px;">${correctCount}</span>
+                <span style="color: red; font-weight: bold; font-size: 28px;">${incorrectCount}</span> / 
+                <span style="color: green; font-weight: bold; font-size: 28px;">${correctCount}</span>
             `;
         }
 
@@ -106,30 +106,30 @@
             height: 100vh;
             background-color: black;
             color: white;
-            font-size: 30px;
-            font-family: 'Arial', sans-serif; /* Farklı font */
+            font-size: 24px; /* %20 küçültüldü */
+            font-family: 'Arial', sans-serif;
         }
         h1 {
             text-align: center;
             margin-bottom: 20px;
             margin-top: 20px;
-            font-size: 30px; /* Puntosu büyütüldü */
+            font-size: 24px; /* %20 küçültüldü */
             color: yellow;
-            margin-bottom: 70px; /* 7 satırlık boşluk */
+            margin-bottom: 56px; /* 7 satırlık boşluk */
         }
         .english {
-            font-size: 40px;
+            font-size: 32px; /* %20 küçültüldü */
             color: white;
             margin-bottom: 20px;
         }
         .turkish {
-            font-size: 35px;
+            font-size: 28px; /* %20 küçültüldü */
             color: yellow;
         }
         button {
             margin: 10px;
             padding: 15px;
-            font-size: 20px;
+            font-size: 16px; /* %20 küçültüldü */
             cursor: pointer;
             border: none;
             background-color: white;
@@ -138,7 +138,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         #score {
-            font-size: 36px;
+            font-size: 28px; /* %20 küçültüldü */
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -157,6 +157,6 @@
         <button onclick="checkAnswer(document.getElementById('answer2').innerText)" id="answer2">Cevap 2</button>
         <button onclick="checkAnswer(document.getElementById('answer3').innerText)" id="answer3">Cevap 3</button>
     </div>
-    <div id="result" style="margin-top: 20px; font-size: 24px;"></div>
+    <div id="result" style="margin-top: 20px; font-size: 20px;"></div>
 </body>
 </html>
