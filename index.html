@@ -50,6 +50,7 @@
         function checkAnswer(selectedAnswer) {
             const correctAnswer = phrases[currentPhraseIndex].correct;
             const buttons = document.querySelectorAll("button");
+            const phrase = phrases[currentPhraseIndex];
 
             buttons.forEach(btn => {
                 if (btn.innerText === selectedAnswer) {
@@ -65,12 +66,14 @@
             });
 
             if (selectedAnswer === correctAnswer) {
-                currentPhraseIndex++;
-                if (currentPhraseIndex < phrases.length) {
-                    setTimeout(loadPhrase, 1000); // Wait 1 second before loading next phrase
-                } else {
-                    setTimeout(() => alert("Tüm cümleleri tamamladınız!"), 1000);
-                }
+                setTimeout(() => {
+                    currentPhraseIndex++;
+                    if (currentPhraseIndex < phrases.length) {
+                        loadPhrase();
+                    } else {
+                        alert("Tüm cümleleri tamamladınız!");
+                    }
+                }, 1000); // Wait 1 second before loading next phrase
             }
         }
 
@@ -89,10 +92,12 @@
         }
         h1 {
             margin-bottom: 20px;
+            margin-top: 20px;
         }
         .english {
             font-size: 40px;
             color: white;
+            margin-bottom: 20px;
         }
         .turkish {
             font-size: 35px;
