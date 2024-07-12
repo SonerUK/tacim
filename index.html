@@ -90,8 +90,8 @@
 
         function updateScore() {
             document.getElementById("score").innerHTML = `
-                <span style="color: red;">${incorrectCount}</span> / 
-                <span style="color: green;">${correctCount}</span>
+                <span style="color: red; font-weight: bold; font-size: 36px;">${incorrectCount}</span> / 
+                <span style="color: green; font-weight: bold; font-size: 36px;">${correctCount}</span>
             `;
         }
 
@@ -107,6 +107,7 @@
             background-color: black;
             color: white;
             font-size: 30px;
+            font-family: 'Arial', sans-serif; /* Farklı font */
         }
         h1 {
             text-align: center;
@@ -137,8 +138,9 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         #score {
-            font-size: 24px;
+            font-size: 36px;
             margin-bottom: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
