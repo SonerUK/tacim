@@ -45,6 +45,7 @@
                 btn.style.backgroundColor = "white";
                 btn.disabled = false;
             });
+            document.getElementById("result").innerText = ""; // Clear previous result
         }
 
         function checkAnswer(selectedAnswer) {
@@ -57,9 +58,13 @@
                     if (selectedAnswer === correctAnswer) {
                         btn.style.backgroundColor = "green";
                         document.getElementById("english").innerText = 
-                            phrase.english.replace("________", correctAnswer);
+                            phrase.english.replace("________", correctAnswer) + " ✅"; // Checkmark
+                        document.getElementById("result").innerText = "Doğru!";
                     } else {
                         btn.style.backgroundColor = "red";
+                        document.getElementById("result").innerText = "Yanlış!"; 
+                        document.getElementById("english").innerText = 
+                            phrase.english.replace("________", selectedAnswer) + " ❌"; // Cross
                     }
                     btn.disabled = true; // Disable all buttons after selection
                 }
@@ -116,14 +121,6 @@
             color: black;
             border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        button:hover {
-            background-color: gray;
-            transform: scale(1.05);
-        }
-        button:active {
-            transform: scale(0.95);
         }
     </style>
 </head>
@@ -136,5 +133,6 @@
         <button onclick="checkAnswer(document.getElementById('answer2').innerText)" id="answer2">Cevap 2</button>
         <button onclick="checkAnswer(document.getElementById('answer3').innerText)" id="answer3">Cevap 3</button>
     </div>
+    <div id="result" style="margin-top: 20px; font-size: 24px;"></div>
 </body>
 </html>
