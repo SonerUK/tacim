@@ -3,59 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İngilizce Testi</title>
+    <title>Rastgele Kelime</title>
     <script>
         const words = [
-            { tr: "BEN", en: "I" },
-            { tr: "SEN", en: "YOU" },
-            { tr: "O", en: "HE/SHE/IT" },
-            { tr: "BİZ", en: "WE" },
-            { tr: "SİZ", en: "YOU (plural)" },
-            { tr: "ONLAR", en: "THEY" }
+            "BEN", "SEN", "O", "BİZ", "SİZ", "ONLAR",
+            "I", "YOU", "HE", "SHE", "IT", "WE", "YOU", "THEY"
         ];
-
         function displayRandomWord() {
             const randomIndex = Math.floor(Math.random() * words.length);
-            const word = words[randomIndex];
-            document.getElementById("turkish").innerText = word.tr;
-            document.getElementById("english").innerText = "Cevabı görmek için tıklayın.";
-            document.getElementById("answer").innerText = ""; // Clear previous answer
-        }
-
-        function showAnswer() {
-            const englishWord = document.getElementById("english");
-            const answer = words.find(word => word.tr === document.getElementById("turkish").innerText);
-            document.getElementById("answer").innerText = answer.en;
+            document.getElementById("word").innerText = words[randomIndex];
         }
     </script>
     <style>
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: white;
-            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            font-size: 30px;
         }
         h1 {
             text-align: center;
         }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        #english {
-            margin-top: 20px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body onclick="displayRandomWord()">
-    <h1 id="turkish">Kelime Burada</h1>
-    <div id="english">Cevabı görmek için tıklayın.</div>
-    <div id="answer"></div>
-    <button onclick="showAnswer()">Cevabı Göster</button>
+    <h1 id="word">Kelime Burada</h1>
 </body>
 </html>
+
