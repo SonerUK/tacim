@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rastgele Cümle</title>
+    <title>Ders Çalışma Programı</title>
     <script>
         const phrases = [
             { 
@@ -41,19 +41,36 @@
             document.getElementById("answer1").innerText = phrase.answers[0];
             document.getElementById("answer2").innerText = phrase.answers[1];
             document.getElementById("answer3").innerText = phrase.answers[2];
+            document.querySelectorAll("button").forEach(btn => {
+                btn.style.backgroundColor = "white";
+                btn.disabled = false;
+            });
         }
 
         function checkAnswer(selectedAnswer) {
             const correctAnswer = phrases[currentPhraseIndex].correct;
+            const buttons = document.querySelectorAll("button");
+
+            buttons.forEach(btn => {
+                if (btn.innerText === selectedAnswer) {
+                    if (selectedAnswer === correctAnswer) {
+                        btn.style.backgroundColor = "green";
+                        document.getElementById("english").innerText = 
+                            phrase.english.replace("________", correctAnswer);
+                    } else {
+                        btn.style.backgroundColor = "red";
+                    }
+                    btn.disabled = true; // Disable all buttons after selection
+                }
+            });
+
             if (selectedAnswer === correctAnswer) {
                 currentPhraseIndex++;
                 if (currentPhraseIndex < phrases.length) {
-                    loadPhrase();
+                    setTimeout(loadPhrase, 1000); // Wait 1 second before loading next phrase
                 } else {
-                    alert("Tüm cümleleri tamamladınız!");
+                    setTimeout(() => alert("Tüm cümleleri tamamladınız!"), 1000);
                 }
-            } else {
-                alert("Yanlış cevap! Tekrar deneyin.");
             }
         }
 
@@ -69,6 +86,9 @@
             background-color: black;
             color: white;
             font-size: 30px;
+        }
+        h1 {
+            margin-bottom: 20px;
         }
         .english {
             font-size: 40px;
@@ -94,8 +114,9 @@
     </style>
 </head>
 <body>
-    <h1 id="english" class="english">Cümle Burada</h1>
-    <h2 id="turkish" class="turkish">Türkçe Çeviri Burada</h2>
+    <h1>Ders Çalışma Programı</h1>
+    <h2 id="english" class="english">Cümle Burada</h2>
+    <h3 id="turkish" class="turkish">Türkçe Çeviri Burada</h3>
     <div>
         <button onclick="checkAnswer(document.getElementById('answer1').innerText)" id="answer1">Cevap 1</button>
         <button onclick="checkAnswer(document.getElementById('answer2').innerText)" id="answer2">Cevap 2</button>
