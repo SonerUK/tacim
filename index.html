@@ -3,40 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TACİME ÖZEL | DERS ÇALIŞMASI</title>
+    <title>SEVGİLİME ÖZEL | DERS ÇALIŞMASI</title>
     <script>
-        const phrases = [
-            { 
-                english: "He ________ writing an email.", 
-                turkish: "O bir e-posta yazıyor.",
-                answers: ["is", "are", "was"],
-                correct: "is"
-            },
-            { 
-                english: "She ________ making a cake.", 
-                turkish: "O bir kek yapıyor.",
-                answers: ["is", "are", "do"],
-                correct: "is"
-            },
-            { 
-                english: "They are work________ on a project.", 
-                turkish: "Bir proje üzerinde çalışıyorlar.",
-                answers: ["ing", "ed", "ing"],
-                correct: "ing"
-            },
-            { 
-                english: "We are read________ a magazine.", 
-                turkish: "Bir dergi okuyoruz.",
-                answers: ["ing", "s", "es"],
-                correct: "ing"
-            },
-            { 
-                english: "We are talk________ about the movie.", 
-                turkish: "Biz film hakkında konuşuyoruz.",
-                answers: ["s", "ing", "ed"],
-                correct: "ing"
-            }
-        ];
+       const phrases = [
+    { 
+        english: "I ______ a teacher.", 
+        turkish: "Ben bir öğretmenim.",
+        answers: ["is", "are", "am"],
+        correct: "am"
+    },
+    { 
+        english: "She ________ going to school.", 
+        turkish: "O okula gidiyor.",
+        answers: ["was", "are", "is"],
+        correct: "is"
+    },
+    { 
+        english: "They are cook________ dinner.", 
+        turkish: "Onlar akşam yemeği pişiriyor.",
+        answers: ["ed", "ing", "will"],
+        correct: "ing"
+    },
+    { 
+        english: "We are talk________ about the movie.", 
+        turkish: "Biz film hakkında konuşuyoruz.",
+        answers: ["s", "ing", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "I ________ speak English.", 
+        turkish: "Ben İngilizce konuşacağım.",
+        answers: ["am", "will", "is"],
+        correct: "will"
+    },
+    { 
+        english: "I am going ________ run.", 
+        turkish: "Ben koşacağım.",
+        answers: ["to", "ed", "ing"],
+        correct: "to"
+    },
+    { 
+        english: "He ________ going to walk.", 
+        turkish: "O yürüyecek.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They __________ playing football.", 
+        turkish: "Onlar futbol oynuyor.",
+        answers: ["is", "are", "will"],
+        correct: "are"
+    },
+    { 
+        english: "The cat ________ sleeping.", 
+        turkish: "Kedi uyuyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "I ______ very happy.", 
+        turkish: "Ben çok mutluyum.",
+        answers: ["are", "am", "is"],
+        correct: "am"
+    },
+    { 
+        english: "She __________ finished.", 
+        turkish: "O işi bitirdi.",
+        answers: ["was", "does", "has"],
+        correct: "has"
+    },
+    { 
+        english: "They are writ________ a letter.", 
+        turkish: "Onlar mektup yazıyor.",
+        answers: ["s", "ed", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "We are plann________ a trip.", 
+        turkish: "Biz bir gezi planlıyoruz.",
+        answers: ["s", "ed", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "He ________ eating an apple.", 
+        turkish: "O bir elma yiyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "You ________ very kind.", 
+        turkish: "Sen çok naziksin.",
+        answers: ["are", "am", "is"],
+        correct: "are"
+    },
+    { 
+        english: "She ________ my best friend.", 
+        turkish: "O en iyi arkadaşım.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They are read________ a book.", 
+        turkish: "Onlar bir kitap okuyor.",
+        answers: ["ing", "s", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "We are learn________ new things.", 
+        turkish: "Biz yeni şeyler öğreniyoruz.",
+        answers: ["ed", "ing", "s"],
+        correct: "ing"
+    },
+    { 
+        english: "I ______ going to start.", 
+        turkish: "Ben başlayacağım.",
+        answers: ["am", "is", "are"],
+        correct: "am"
+    },
+    { 
+        english: "He ________ a doctor.", 
+        turkish: "O bir doktor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They __________ happy.", 
+        turkish: "Onlar mutlu.",
+        answers: ["are", "was", "is"],
+        correct: "are"
+    },
+    { 
+        english: "We are work________ on a project.", 
+        turkish: "Biz proje üzerinde çalışıyoruz.",
+        answers: ["ing", "s", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "She talk________ to her friend.", 
+        turkish: "O arkadaşıyla konuşuyor.",
+        answers: ["ed", "s", "ing"],
+        correct: "s"
+    },
+    { 
+        english: "You ________ very tired.", 
+        turkish: "Sen çok yorgunsun.",
+        answers: ["am", "are", "is"],
+        correct: "are"
+    },
+    { 
+        english: "I ________ write a letter.", 
+        turkish: "Ben bir mektup yazacağım.",
+        answers: ["is", "will", "are"],
+        correct: "will"
+    },
+    { 
+        english: "They are play________ basketball.", 
+        turkish: "Onlar basketbol oynuyor.",
+        answers: ["ing", "s", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "He ________ studying.", 
+        turkish: "O ders çalışıyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "She ________ my sister.", 
+        turkish: "O benim kız kardeşim.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "We are paint________ the house.", 
+        turkish: "Biz evi boyuyoruz.",
+        answers: ["s", "ed", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "They are driv________ home.", 
+        turkish: "Onlar eve gidiyor.",
+        answers: ["ed", "ing", "s"],
+        correct: "ing"
+    },
+    { 
+        english: "I ______ very excited.", 
+        turkish: "Ben çok heyecanlıyım.",
+        answers: ["am", "is", "are"],
+        correct: "am"
+    },
+    { 
+        english: "She ________ cooking dinner.", 
+        turkish: "O akşam yemeği pişiriyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "We ________ friends.", 
+        turkish: "Biz arkadaşız.",
+        answers: ["is", "are", "was"],
+        correct: "are"
+    },
+    { 
+        english: "He ________ playing the guitar.", 
+        turkish: "O gitar çalıyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They are learn________ English.", 
+        turkish: "Onlar İngilizce öğreniyor.",
+        answers: ["s", "ing", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "We are watch________ a movie.", 
+        turkish: "Biz bir film izliyoruz.",
+        answers: ["s", "ing", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "She ________ to go.", 
+        turkish: "O gitmek zorunda.",
+        answers: ["has", "was", "is"],
+        correct: "has"
+    },
+    { 
+        english: "He ________ a student.", 
+        turkish: "O bir öğrenci.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They are paint________ a picture.", 
+        turkish: "Onlar bir resim yapıyor.",
+        answers: ["s", "ing", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "I ________ going to the market.", 
+        turkish: "Ben pazara gidiyorum.",
+        answers: ["is", "are", "am"],
+        correct: "am"
+    },
+    { 
+        english: "She ________ dancing.", 
+        turkish: "O dans ediyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "We ________ teachers.", 
+        turkish: "Biz öğretmeniz.",
+        answers: ["was", "is", "are"],
+        correct: "are"
+    },
+    { 
+        english: "They ________ singing.", 
+        turkish: "Onlar şarkı söylüyor.",
+        answers: ["is", "was", "are"],
+        correct: "are"
+    },
+    { 
+        english: "He ________ running fast.", 
+        turkish: "O hızlı koşuyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "I ________ very hungry.", 
+        turkish: "Ben çok açım.",
+        answers: ["am", "is", "are"],
+        correct: "am"
+    },
+    { 
+        english: "We are visit________ the museum.", 
+        turkish: "Biz müzeyi ziyaret ediyoruz.",
+        answers: ["ed", "ing", "s"],
+        correct: "ing"
+    },
+    { 
+        english: "She ________ writing a book.", 
+        turkish: "O bir kitap yazıyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They are play________ chess.", 
+        turkish: "Onlar satranç oynuyor.",
+        answers: ["ed", "s", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "He ________ reading a newspaper.", 
+        turkish: "O bir gazete okuyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "She ________ going to the gym.", 
+        turkish: "O spor salonuna gidiyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "I ________ learning English.", 
+        turkish: "Ben İngilizce öğreniyorum.",
+        answers: ["is", "am", "are"],
+        correct: "am"
+    },
+    { 
+        english: "They ________ going to the park.", 
+        turkish: "Onlar parka gidiyor.",
+        answers: ["are", "is", "was"],
+        correct: "are"
+    },
+    { 
+        english: "We are plan________ a party.", 
+        turkish: "Biz bir parti planlıyoruz.",
+        answers: ["s", "ed", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "He ________ drinking coffee.", 
+        turkish: "O kahve içiyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "She ________ listening to music.", 
+        turkish: "O müzik dinliyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "I ________ a writer.", 
+        turkish: "Ben bir yazarım.",
+        answers: ["am", "is", "are"],
+        correct: "am"
+    },
+    { 
+        english: "They are swim________ in the pool.", 
+        turkish: "Onlar havuzda yüzüyor.",
+        answers: ["s", "ed", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "We are hav________ a meeting.", 
+        turkish: "Biz toplantı yapıyoruz.",
+        answers: ["ed", "s", "ing"],
+        correct: "ing"
+    },
+    { 
+        english: "He ________ going to the office.", 
+        turkish: "O ofise gidiyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "She ________ going to start.", 
+        turkish: "O başlayacak.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They ________ excited.", 
+        turkish: "Onlar heyecanlı.",
+        answers: ["are", "is", "was"],
+        correct: "are"
+    },
+    { 
+        english: "We are cook________ dinner.", 
+        turkish: "Biz akşam yemeği pişiriyoruz.",
+        answers: ["is", "ing", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "I ________ going to the store.", 
+        turkish: "Ben dükkana gidiyorum.",
+        answers: ["am", "is", "are"],
+        correct: "am"
+    },
+    { 
+        english: "He ________ writing an email.", 
+        turkish: "O bir e-posta yazıyor.",
+        answers: ["is", "was", "are"],
+        correct: "is"
+    },
+    { 
+        english: "She ________ making a cake.", 
+        turkish: "O bir kek yapıyor.",
+        answers: ["was", "is", "are"],
+        correct: "is"
+    },
+    { 
+        english: "They are work________ on a project.", 
+        turkish: "Bir proje üzerinde çalışıyorlar.",
+        answers: ["s", "ing", "ed"],
+        correct: "ing"
+    },
+    { 
+        english: "We are read________ a magazine.", 
+        turkish: "Bir dergi okuyoruz.",
+        answers: ["ed", "ing", "s"],
+        correct: "ing"
+    }
+];
+
 
         let currentPhraseIndex = 0;
         let correctCount = 0;
