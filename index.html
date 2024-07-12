@@ -6,17 +6,58 @@
     <title>Rastgele Cümle</title>
     <script>
         const phrases = [
-            { english: "He ________ writing an email.", turkish: "O bir e-posta yazıyor." },
-            { english: "She ________ making a cake.", turkish: "O bir kek yapıyor." },
-            { english: "They are work________ on a project.", turkish: "Bir proje üzerinde çalışıyorlar." },
-            { english: "We are read________ a magazine.", turkish: "Bir dergi okuyoruz." }
+            { 
+                english: "He ________ writing an email.", 
+                turkish: "O bir e-posta yazıyor.",
+                answers: ["is", "are", "was"],
+                correct: "is"
+            },
+            { 
+                english: "She ________ making a cake.", 
+                turkish: "O bir kek yapıyor.",
+                answers: ["is", "are", "do"],
+                correct: "is"
+            },
+            { 
+                english: "They are work________ on a project.", 
+                turkish: "Bir proje üzerinde çalışıyorlar.",
+                answers: ["ing", "ed", "ing"],
+                correct: "ing"
+            },
+            { 
+                english: "We are read________ a magazine.", 
+                turkish: "Bir dergi okuyoruz.",
+                answers: ["ing", "s", "es"],
+                correct: "ing"
+            }
         ];
-        
-        function displayRandomPhrase() {
-            const randomIndex = Math.floor(Math.random() * phrases.length);
-            document.getElementById("english").innerText = phrases[randomIndex].english;
-            document.getElementById("turkish").innerText = phrases[randomIndex].turkish;
+
+        let currentPhraseIndex = 0;
+
+        function loadPhrase() {
+            const phrase = phrases[currentPhraseIndex];
+            document.getElementById("english").innerText = phrase.english;
+            document.getElementById("turkish").innerText = phrase.turkish;
+            document.getElementById("answer1").innerText = phrase.answers[0];
+            document.getElementById("answer2").innerText = phrase.answers[1];
+            document.getElementById("answer3").innerText = phrase.answers[2];
         }
+
+        function checkAnswer(selectedAnswer) {
+            const correctAnswer = phrases[currentPhraseIndex].correct;
+            if (selectedAnswer === correctAnswer) {
+                currentPhraseIndex++;
+                if (currentPhraseIndex < phrases.length) {
+                    loadPhrase();
+                } else {
+                    alert("Tüm cümleleri tamamladınız!");
+                }
+            } else {
+                alert("Yanlış cevap! Tekrar deneyin.");
+            }
+        }
+
+        window.onload = loadPhrase;
     </script>
     <style>
         body {
@@ -37,10 +78,28 @@
             font-size: 35px;
             color: yellow;
         }
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: gray;
+        }
     </style>
 </head>
-<body onclick="displayRandomPhrase()">
+<body>
     <h1 id="english" class="english">Cümle Burada</h1>
     <h2 id="turkish" class="turkish">Türkçe Çeviri Burada</h2>
+    <div>
+        <button onclick="checkAnswer(document.getElementById('answer1').innerText)" id="answer1">Cevap 1</button>
+        <button onclick="checkAnswer(document.getElementById('answer2').innerText)" id="answer2">Cevap 2</button>
+        <button onclick="checkAnswer(document.getElementById('answer3').innerText)" id="answer3">Cevap 3</button>
+    </div>
 </body>
 </html>
