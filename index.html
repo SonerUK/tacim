@@ -3,34 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rastgele Kelime</title>
+    <title>Rastgele Cümle</title>
     <script>
-        const words = [
-            "BEN", "SEN", "O", "BİZ", "SİZ", "ONLAR",
-            "I", "YOU", "HE", "SHE", "IT", "WE", "YOU", "THEY"
+        const phrases = [
+            { english: "He ________ writing an email.", turkish: "O bir e-posta yazıyor." },
+            { english: "She ________ making a cake.", turkish: "O bir kek yapıyor." },
+            { english: "They are work________ on a project.", turkish: "Bir proje üzerinde çalışıyorlar." },
+            { english: "We are read________ a magazine.", turkish: "Bir dergi okuyoruz." }
         ];
-        function displayRandomWord() {
-            const randomIndex = Math.floor(Math.random() * words.length);
-            document.getElementById("word").innerText = words[randomIndex];
+        
+        function displayRandomPhrase() {
+            const randomIndex = Math.floor(Math.random() * phrases.length);
+            document.getElementById("english").innerText = phrases[randomIndex].english;
+            document.getElementById("turkish").innerText = phrases[randomIndex].turkish;
         }
     </script>
     <style>
         body {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: black;
             color: white;
-            font-size: 130px;
+            font-size: 30px;
         }
-        h1 {
-            text-align: center;
+        .english {
+            font-size: 40px;
+            color: white;
+        }
+        .turkish {
+            font-size: 35px;
+            color: yellow;
         }
     </style>
 </head>
-<body onclick="displayRandomWord()">
-    <h1 id="word">Kelime Burada</h1>
+<body onclick="displayRandomPhrase()">
+    <h1 id="english" class="english">Cümle Burada</h1>
+    <h2 id="turkish" class="turkish">Türkçe Çeviri Burada</h2>
 </body>
 </html>
-
