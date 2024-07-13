@@ -39,23 +39,36 @@
                 resultDiv.innerText = "Doğru Cevap!";
                 button.style.backgroundColor = "green";
                 correctCount++;
-                currentWordIndex++; // Sıradaki soruya geç
-                setTimeout(loadWordQuestion, 1000); // 1 saniye bekleyip yeni soruyu yükle
+                currentWordIndex++;
+
+                // Sıradaki soruya geçmek için 1.5 saniye bekle
+                setTimeout(() => {
+                    if (currentWordIndex < wordQuestions.length) {
+                        loadWordQuestion();
+                    } else {
+                        alert("Kelime soruları tamamlandı!");
+                    }
+                }, 1500);
             } else {
-                resultDiv.innerText = `Yanlış! Doğru Cevap: ${correctAnswer}`;
+                resultDiv.innerText = "Yanlış! Doğru cevabı bulmalısınız.";
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
+                incorrectCount++;
+                // Diğer seçenekleri kontrol et
                 const buttons = document.querySelectorAll("button");
                 buttons.forEach(btn => {
-                    if (btn.innerText === correctAnswer) {
-                        btn.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-                    }
+                    btn.disabled = true; // Diğer butonları devre dışı bırak
                 });
-                incorrectCount++;
-                // Sıradaki soruya geçmek için 1 saniye bekle
-                setTimeout(() => {
-                    currentWordIndex++;
-                    loadWordQuestion();
-                }, 1000);
+                // Doğru cevabı yeşil yapacak
+                const correctButton = Array.from(buttons).find(btn => btn.innerText === correctAnswer);
+                correctButton.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
+
+                // Doğru cevap seçildiğinde 2.5 saniye bekle
+                correctButton.onclick = () => {
+                    setTimeout(() => {
+                        currentWordIndex++;
+                        loadWordQuestion();
+                    }, 2500);
+                };
             }
 
             updateScore();
