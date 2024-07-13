@@ -16,6 +16,7 @@
 
         let correctCount = 0;
         let incorrectCount = 0;
+        let canProceed = true;
 
         function loadRandomWordQuestion() {
             const randomIndex = Math.floor(Math.random() * wordQuestions.length);
@@ -29,6 +30,7 @@
                 optionsList.appendChild(li);
             });
             document.getElementById("result").innerText = ""; // Önceki sonucu temizle
+            canProceed = true; // Yeni soruya geçiş izni
         }
 
         function checkWordAnswer(selectedAnswer, button, correctAnswer) {
@@ -38,16 +40,36 @@
                 resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Yeşil tick
                 button.style.backgroundColor = "green";
                 correctCount++;
+                setTimeout(loadRandomWordQuestion, 2500); // 2.5 saniye bekle
             } else {
                 resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>"; // Yanlış cevabı göster
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
+                canProceed = false; // Yeni soruya geçiş izni kaldır
+
+                // Doğru cevabı seçene kadar bekle
+                highlightCorrectAnswer(correctAnswer);
             }
 
             updateScore();
+        }
 
-            // 2.5 saniye bekledikten sonra yeni soru yükle
-            setTimeout(loadRandomWordQuestion, 2500);
+        function highlightCorrectAnswer(correctAnswer) {
+            const buttons = document.querySelectorAll("#options button");
+            buttons.forEach(button => {
+                if (button.innerText === correctAnswer) {
+                    button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
+                }
+                button.disabled = true; // Tüm butonları devre dışı bırak
+            });
+
+            // Kullanıcı doğru cevabı seçene kadar bekle
+            const interval = setInterval(() => {
+                if (canProceed) {
+                    clearInterval(interval);
+                    loadRandomWordQuestion(); // Yeni soruyu yükle
+                }
+            }, 100);
         }
 
         function updateScore() {
