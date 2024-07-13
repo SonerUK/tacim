@@ -45,31 +45,25 @@
                 resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>"; // Yanlış cevabı göster
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
-                canProceed = false; // Yeni soruya geçiş izni kaldır
 
-                // Doğru cevabı seçene kadar bekle
-                highlightCorrectAnswer(correctAnswer);
+                // Kullanıcı doğru cevabı seçene kadar bekle
+                waitForCorrectAnswer(correctAnswer);
             }
 
             updateScore();
         }
 
-        function highlightCorrectAnswer(correctAnswer) {
+        function waitForCorrectAnswer(correctAnswer) {
             const buttons = document.querySelectorAll("#options button");
             buttons.forEach(button => {
-                if (button.innerText === correctAnswer) {
-                    button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-                }
-                button.disabled = true; // Tüm butonları devre dışı bırak
+                button.onclick = function() {
+                    if (button.innerText === correctAnswer) {
+                        button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
+                        canProceed = true; // Doğru cevap verildi
+                        setTimeout(loadRandomWordQuestion, 2500); // Yeni soruyu yükle
+                    }
+                };
             });
-
-            // Kullanıcı doğru cevabı seçene kadar bekle
-            const interval = setInterval(() => {
-                if (canProceed) {
-                    clearInterval(interval);
-                    loadRandomWordQuestion(); // Yeni soruyu yükle
-                }
-            }, 100);
         }
 
         function updateScore() {
