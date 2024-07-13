@@ -26,7 +26,7 @@
             optionsList.innerHTML = '';
             question.options.forEach(option => {
                 const li = document.createElement('li');
-                li.innerHTML = `<button onclick="checkWordAnswer('<span class="math-inline">\{option\}', this, '</span>{question.answer}')">${option}</button>`;
+                li.innerHTML = `<button onclick="checkWordAnswer('${option}', this, '${question.answer}')">${option}</button>`;
                 optionsList.appendChild(li);
             });
             document.getElementById("result").innerText = ""; // Önceki sonucu temizle
@@ -47,27 +47,29 @@
                 incorrectCount++;
 
                 // Kullanıcı doğru cevabı seçene kadar bekle
-                waitForCorrectAnswer(correctAnswer, button); // Hata düzeltildi: button parametresi eklendi
+                waitForCorrectAnswer(correctAnswer);
             }
 
             updateScore();
         }
 
-        function waitForCorrectAnswer(correctAnswer, button) { // Hata düzeltildi: button parametresi eklendi
-            button.onclick = null; // Mevcut olay dinleyicisini kaldırın
-            button.onclick = function() {
-                if (button.innerText === correctAnswer) {
-                    button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-                    canProceed = true; // Doğru cevap verildi
-                    setTimeout(loadRandomWordQuestion, 2500); // Yeni soruyu yükle
-                }
-            };
+        function waitForCorrectAnswer(correctAnswer) {
+            const buttons = document.querySelectorAll("#options button");
+            buttons.forEach(button => {
+                button.onclick = function() {
+                    if (button.innerText === correctAnswer) {
+                        button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
+                        canProceed = true; // Doğru cevap verildi
+                        setTimeout(loadRandomWordQuestion, 2500); // Yeni soruyu yükle
+                    }
+                };
+            });
         }
 
         function updateScore() {
             document.getElementById("score").innerHTML = `
-                <span style="color: red; font-weight: bold; font-size: 28px;"><span class="math-inline">\{incorrectCount\}</span\> / 
-<span style\="color\: green; font\-weight\: bold; font\-size\: 28px;"\></span>{correctCount}</span>
+                <span style="color: red; font-weight: bold; font-size: 28px;">${incorrectCount}</span> / 
+                <span style="color: green; font-weight: bold; font-size: 28px;">${correctCount}</span>
             `;
         }
 
@@ -88,4 +90,40 @@
         #word {
             font-size: 48px;
             color: yellow; /* Sarı renk */
-            
+            font-weight: bold; /* Kalın font */
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 10px;
+            padding: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        #score {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        #options {
+            list-style-type: none;
+            padding: 0;
+            display: flex; /* Şıkları yan yana yerleştirmek için */
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px; /* Daha büyük font boyutu */
+        }
+    </style>
+</head>
+<body>
+    <div id="score">0 / 0</div>
+    <div id="word"></div>
+    <div id="options"></div>
+    <div id="result"></div>
+</body>
+</html>
