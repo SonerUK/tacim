@@ -33,6 +33,7 @@
 
         function checkWordAnswer(selectedAnswer, button, correctAnswer) {
             const resultDiv = document.getElementById("result");
+            button.disabled = true; // Seçenekler üzerinde değişiklik yapma
 
             if (selectedAnswer === correctAnswer) {
                 resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>";
@@ -43,14 +44,25 @@
                 resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>";
                 button.style.backgroundColor = "red";
                 incorrectCount++;
-                waitForCorrectAnswer(correctAnswer);
+
+                // Yanlış cevap verildiğinde butonları işaretle
+                highlightIncorrectAnswers(correctAnswer);
             }
 
             updateScore();
         }
 
-        function waitForCorrectAnswer(correctAnswer) {
+        function highlightIncorrectAnswers(correctAnswer) {
             const buttons = document.querySelectorAll("#options button");
+            buttons.forEach(button => {
+                if (button.innerText === correctAnswer) {
+                    button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
+                } else {
+                    button.disabled = false; // Diğer butonları aktif bırak
+                }
+            });
+
+            // Kullanıcı doğru cevabı seçene kadar bekle
             buttons.forEach(button => {
                 button.onclick = function() {
                     if (button.innerText === correctAnswer) {
@@ -58,6 +70,8 @@
                         const resultDiv = document.getElementById("result");
                         resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Sonucu güncelle
                         setTimeout(loadRandomWordQuestion, 2500); // Yeni soruyu yükle
+                    } else {
+                        button.style.backgroundColor = "red"; // Yanlış cevabı kırmızı yap
                     }
                 };
             });
