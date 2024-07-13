@@ -41,34 +41,19 @@
                 correctCount++;
                 currentWordIndex++;
 
-                // Sıradaki soruya geçmek için 1.5 saniye bekle
+                // Doğru cevap seçildiğinde 2.5 saniye bekle
                 setTimeout(() => {
                     if (currentWordIndex < wordQuestions.length) {
                         loadWordQuestion();
                     } else {
                         alert("Kelime soruları tamamlandı!");
                     }
-                }, 1500);
+                }, 2500);
             } else {
-                resultDiv.innerText = "Yanlış! Doğru cevabı bulmalısınız.";
+                resultDiv.innerText = "Yanlış! Lütfen doğru cevabı bulmaya devam edin.";
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
-                // Diğer seçenekleri kontrol et
-                const buttons = document.querySelectorAll("button");
-                buttons.forEach(btn => {
-                    btn.disabled = true; // Diğer butonları devre dışı bırak
-                });
-                // Doğru cevabı yeşil yapacak
-                const correctButton = Array.from(buttons).find(btn => btn.innerText === correctAnswer);
-                correctButton.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-
-                // Doğru cevap seçildiğinde 2.5 saniye bekle
-                correctButton.onclick = () => {
-                    setTimeout(() => {
-                        currentWordIndex++;
-                        loadWordQuestion();
-                    }, 2500);
-                };
+                // Diğer butonlar devre dışı bırakılmayacak
             }
 
             updateScore();
