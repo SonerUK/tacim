@@ -36,7 +36,7 @@
             const resultDiv = document.getElementById("result");
 
             if (selectedAnswer === correctAnswer) {
-                resultDiv.innerHTML = "DOĞRU ✔️";
+                resultDiv.innerHTML = "doğru <span style='color: green;'>✔️</span>";
                 button.style.backgroundColor = "green";
                 correctCount++;
                 currentWordIndex++;
@@ -50,7 +50,7 @@
                     }
                 }, 2500);
             } else {
-                resultDiv.innerHTML = "YANLIŞ ❌"; // Yanlış cevabı göster
+                resultDiv.innerHTML = "yanlış <span style='color: red;'>❌</span>"; // Yanlış cevabı göster
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
                 // Diğer butonlar devre dışı bırakılmayacak
@@ -109,7 +109,7 @@
         }
         #result {
             margin-top: 20px;
-            font-size: 20px;
+            font-size: 24px; /* Daha büyük font boyutu */
         }
     </style>
 </head>
