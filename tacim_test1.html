@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -15,49 +14,40 @@
             { word: "Konuşmak", answer: "Speak", options: ["Talk", "Speak", "Discuss", "Chat"] },
         ];
 
-        let currentWordIndex = 0;
         let correctCount = 0;
         let incorrectCount = 0;
 
-        function loadWordQuestion() {
-            const question = wordQuestions[currentWordIndex];
+        function loadRandomWordQuestion() {
+            const randomIndex = Math.floor(Math.random() * wordQuestions.length);
+            const question = wordQuestions[randomIndex];
             document.getElementById("word").innerText = question.word;
             const optionsList = document.getElementById("options");
             optionsList.innerHTML = '';
             question.options.forEach(option => {
                 const li = document.createElement('li');
-                li.innerHTML = `<button onclick="checkWordAnswer('${option}', this)">${option}</button>`;
+                li.innerHTML = `<button onclick="checkWordAnswer('${option}', this, '${question.answer}')">${option}</button>`;
                 optionsList.appendChild(li);
             });
             document.getElementById("result").innerText = ""; // Önceki sonucu temizle
         }
 
-        function checkWordAnswer(selectedAnswer, button) {
-            const correctAnswer = wordQuestions[currentWordIndex].answer;
+        function checkWordAnswer(selectedAnswer, button, correctAnswer) {
             const resultDiv = document.getElementById("result");
 
             if (selectedAnswer === correctAnswer) {
                 resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Yeşil tick
                 button.style.backgroundColor = "green";
                 correctCount++;
-                currentWordIndex++;
-
-                // Doğru cevap seçildiğinde 2.5 saniye bekle
-                setTimeout(() => {
-                    if (currentWordIndex < wordQuestions.length) {
-                        loadWordQuestion();
-                    } else {
-                        alert("Kelime soruları tamamlandı!");
-                    }
-                }, 1000);
             } else {
                 resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>"; // Yanlış cevabı göster
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
-                // Diğer butonlar devre dışı bırakılmayacak
             }
 
             updateScore();
+
+            // 2.5 saniye bekledikten sonra yeni soru yükle
+            setTimeout(loadRandomWordQuestion, 2500);
         }
 
         function updateScore() {
@@ -67,7 +57,7 @@
             `;
         }
 
-        window.onload = loadWordQuestion;
+        window.onload = loadRandomWordQuestion;
     </script>
     <style>
         body {
