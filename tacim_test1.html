@@ -36,7 +36,7 @@
             const resultDiv = document.getElementById("result");
 
             if (selectedAnswer === correctAnswer) {
-                resultDiv.innerText = "Doğru Cevap!";
+                resultDiv.innerHTML = "DOĞRU ✔️";
                 button.style.backgroundColor = "green";
                 correctCount++;
                 currentWordIndex++;
@@ -48,9 +48,9 @@
                     } else {
                         alert("Kelime soruları tamamlandı!");
                     }
-                }, 1000);
+                }, 2500);
             } else {
-                resultDiv.innerText = "Yanlış! Lütfen doğru cevabı bulmaya devam edin.";
+                resultDiv.innerHTML = "YANLIŞ ❌"; // Yanlış cevabı göster
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
                 // Diğer butonlar devre dışı bırakılmayacak
