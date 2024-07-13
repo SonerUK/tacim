@@ -20,26 +20,34 @@
 
         function loadWordQuestion() {
             const question = wordQuestions[currentWordIndex];
-            document.getElementById("english").innerText = `Kelime: ${question.word}`;
+            document.getElementById("word").innerText = question.word;
             const optionsList = document.getElementById("options");
             optionsList.innerHTML = '';
             question.options.forEach(option => {
                 const li = document.createElement('li');
-                li.innerHTML = `<button onclick="checkWordAnswer('${option}')">${option}</button>`;
+                li.innerHTML = `<button onclick="checkWordAnswer('${option}', this)">${option}</button>`;
                 optionsList.appendChild(li);
             });
             document.getElementById("result").innerText = ""; // Önceki sonucu temizle
         }
 
-        function checkWordAnswer(selectedAnswer) {
+        function checkWordAnswer(selectedAnswer, button) {
             const correctAnswer = wordQuestions[currentWordIndex].answer;
             const resultDiv = document.getElementById("result");
 
             if (selectedAnswer === correctAnswer) {
                 resultDiv.innerText = "Doğru Cevap!";
+                button.style.backgroundColor = "green";
                 correctCount++;
             } else {
                 resultDiv.innerText = `Yanlış! Doğru Cevap: ${correctAnswer}`;
+                button.style.backgroundColor = "red";
+                const buttons = document.querySelectorAll("button");
+                buttons.forEach(btn => {
+                    if (btn.innerText === correctAnswer) {
+                        btn.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
+                    }
+                });
                 incorrectCount++;
             }
 
@@ -81,9 +89,9 @@
             color: yellow;
             margin-bottom: 56px;
         }
-        .english {
-            font-size: 32px;
-            color: white;
+        #word {
+            font-size: 48px;
+            color: yellow; /* Sarı renk */
             margin-bottom: 20px;
         }
         button {
@@ -105,6 +113,7 @@
         #options {
             list-style-type: none;
             padding: 0;
+            display: flex; /* Şıkları yan yana yerleştirmek için */
         }
         #result {
             margin-top: 20px;
@@ -118,7 +127,7 @@
         DERS ÇALIŞMASI
     </h1>
     <div id="score">0 / 0</div>
-    <h2 id="english" class="english">Kelime Burada</h2>
+    <div id="word"></div>
     <div id="options"></div>
     <div id="result"></div>
 </body>
