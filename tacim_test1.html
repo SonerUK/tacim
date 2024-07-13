@@ -16,7 +16,6 @@
 
         let correctCount = 0;
         let incorrectCount = 0;
-        let canProceed = true;
 
         function loadRandomWordQuestion() {
             const randomIndex = Math.floor(Math.random() * wordQuestions.length);
@@ -30,23 +29,20 @@
                 optionsList.appendChild(li);
             });
             document.getElementById("result").innerText = ""; // Önceki sonucu temizle
-            canProceed = true; // Yeni soruya geçiş izni
         }
 
         function checkWordAnswer(selectedAnswer, button, correctAnswer) {
             const resultDiv = document.getElementById("result");
 
             if (selectedAnswer === correctAnswer) {
-                resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Yeşil tick
+                resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>";
                 button.style.backgroundColor = "green";
                 correctCount++;
                 setTimeout(loadRandomWordQuestion, 2500); // 2.5 saniye bekle
             } else {
-                resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>"; // Yanlış cevabı göster
-                button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
+                resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>";
+                button.style.backgroundColor = "red";
                 incorrectCount++;
-
-                // Kullanıcı doğru cevabı seçene kadar bekle
                 waitForCorrectAnswer(correctAnswer);
             }
 
@@ -59,7 +55,8 @@
                 button.onclick = function() {
                     if (button.innerText === correctAnswer) {
                         button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-                        canProceed = true; // Doğru cevap verildi
+                        const resultDiv = document.getElementById("result");
+                        resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Sonucu güncelle
                         setTimeout(loadRandomWordQuestion, 2500); // Yeni soruyu yükle
                     }
                 };
