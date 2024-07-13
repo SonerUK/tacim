@@ -12,14 +12,26 @@
             { word: "Görmek", answer: "See", options: ["Watch", "Look", "See", "View"] },
             { word: "Duymak", answer: "Hear", options: ["Listen", "Hear", "Sound", "Noise"] },
             { word: "Konuşmak", answer: "Speak", options: ["Talk", "Speak", "Discuss", "Chat"] },
+            // Daha fazla soru ekleyin...
         ];
 
+        // 800 tane rastgele soru oluştur
+        function generateRandomQuestions() {
+            const questions = [];
+            for (let i = 0; i < 800; i++) {
+                const randomIndex = Math.floor(Math.random() * wordQuestions.length);
+                questions.push(wordQuestions[randomIndex]);
+            }
+            return questions;
+        }
+
+        const randomQuestions = generateRandomQuestions();
         let currentWordIndex = 0;
         let correctCount = 0;
         let incorrectCount = 0;
 
         function loadWordQuestion() {
-            const question = wordQuestions[currentWordIndex];
+            const question = randomQuestions[currentWordIndex];
             document.getElementById("word").innerText = question.word;
             const optionsList = document.getElementById("options");
             optionsList.innerHTML = '';
@@ -32,31 +44,26 @@
         }
 
         function checkWordAnswer(selectedAnswer, button) {
-            const correctAnswer = wordQuestions[currentWordIndex].answer;
+            const correctAnswer = randomQuestions[currentWordIndex].answer;
             const resultDiv = document.getElementById("result");
 
             if (selectedAnswer === correctAnswer) {
                 resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Yeşil tick
                 button.style.backgroundColor = "green";
                 correctCount++;
-                currentWordIndex++;
-
-                // Doğru cevap seçildiğinde 2.5 saniye bekle
-                setTimeout(() => {
-                    if (currentWordIndex < wordQuestions.length) {
-                        loadWordQuestion();
-                    } else {
-                        alert("Kelime soruları tamamlandı!");
-                    }
-                }, 1000);
             } else {
                 resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>"; // Yanlış cevabı göster
                 button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 incorrectCount++;
-                // Diğer butonlar devre dışı bırakılmayacak
             }
 
             updateScore();
+
+            currentWordIndex++;
+            if (currentWordIndex >= randomQuestions.length) {
+                currentWordIndex = 0; // Başlangıca dön
+            }
+            setTimeout(loadWordQuestion, selectedAnswer === correctAnswer ? 2500 : 0); // Cevap doğruysa 2.5 saniye bekle
         }
 
         function updateScore() {
