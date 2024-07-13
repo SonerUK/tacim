@@ -39,9 +39,11 @@
                 resultDiv.innerText = "Doğru Cevap!";
                 button.style.backgroundColor = "green";
                 correctCount++;
+                currentWordIndex++; // Sıradaki soruya geç
+                setTimeout(loadWordQuestion, 1000); // 1 saniye bekleyip yeni soruyu yükle
             } else {
                 resultDiv.innerText = `Yanlış! Doğru Cevap: ${correctAnswer}`;
-                button.style.backgroundColor = "red";
+                button.style.backgroundColor = "red"; // Yanlış cevap butonu kırmızı olur
                 const buttons = document.querySelectorAll("button");
                 buttons.forEach(btn => {
                     if (btn.innerText === correctAnswer) {
@@ -49,16 +51,14 @@
                     }
                 });
                 incorrectCount++;
+                // Sıradaki soruya geçmek için 1 saniye bekle
+                setTimeout(() => {
+                    currentWordIndex++;
+                    loadWordQuestion();
+                }, 1000);
             }
 
             updateScore();
-            currentWordIndex++;
-
-            if (currentWordIndex < wordQuestions.length) {
-                setTimeout(loadWordQuestion, 1000);
-            } else {
-                alert("Kelime soruları tamamlandı!");
-            }
         }
 
         function updateScore() {
