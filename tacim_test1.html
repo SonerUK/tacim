@@ -3,38 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tacim - Test 1</title>
+    <title>TACİME ÖZEL | DERS ÇALIŞMASI</title>
+    <script>
+        const phrases = [
+            { 
+                english: "He ________ writing an email.", 
+                turkish: "O bir e-posta yazıyor.",
+                answers: ["is", "are", "was"],
+                correct: "is"
+            },
+            { 
+                english: "She ________ making a cake.", 
+                turkish: "O bir kek yapıyor.",
+                answers: ["is", "are", "do"],
+                correct: "is"
+            },
+            { 
+                english: "They are work________ on a project.", 
+                turkish: "Bir proje üzerinde çalışıyorlar.",
+                answers: ["ing", "ed", "ing"],
+                correct: "ing"
+            },
+            { 
+                english: "We are read________ a magazine.", 
+                turkish: "Bir dergi okuyoruz.",
+                answers: ["ing", "s", "es"],
+                correct: "ing"
+            },
+            { 
+                english: "We are talk________ about the movie.", 
+                turkish: "Biz film hakkında konuşuyoruz.",
+                answers: ["s", "ing", "ed"],
+                correct: "ing"
+            }
+        ];
+
+        const wordQuestions = [
+            { word: "Yapmak", answer: "Do", options: ["Make", "Do", "Create", "Build"] },
+            { word: "Gitmek", answer: "Go", options: ["Leave", "Go", "Come", "Arrive"] },
+            { word: "Gelmek", answer: "Come", options: ["Go", "Come", "Depart", "Return"] },
+            { word: "Görmek", answer: "See", options: ["Watch", "Look", "See", "View"] },
+            { word: "Duymak", answer: "Hear", options: ["Listen", "Hear", "Sound", "Noise"] },
+            { word: "Konuşmak", answer: "Speak", options: ["Talk", "Speak", "Discuss", "Chat"] },
+        ];
+
+        let currentPhraseIndex = 0;
+        let currentWordIndex = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let quizType = 'phrases'; // Başlangıçta cümle soruları
+
+        function loadPhrase() {
+            const phrase = phrases[currentPhraseIndex];
+            document.getElementById("english").innerText = phrase.english;
+            document.getElementById("turkish").innerText = phrase.turkish;
+            document.getElementById("answer1").innerText = phrase.answers[0];
+            document.getElementById("answer2").innerText = phrase.answers[1];
+            document.getElementById("answer3").innerText = phrase.answers[2];
+            document.querySelectorAll("button").forEach(btn => {
+                btn.style.backgroundColor = "white";
+                btn.disabled = false;
+            });
+            document.getElementById("result").innerText = ""; // Önceki sonucu temizle
+        }
+
+        function loadWordQuestion() {
+            const question = wordQuestions[currentWordIndex];
+            document.getElementById("english").innerText = `Kelime: ${question.word}`;
+            const optionsList = document.getElementById("options");
+            optionsList.innerHTML = '';
+            question.options.forEach(option => {
+                const li = document.createElement('li');
+                li.innerHTML = `<button onclick="checkWordAnswer('${option}')">${option}</button>`;
+                optionsList.appendChild(li);
+            });
+            document.getElementById("result").innerText = ""; // Önceki sonucu temizle
+        }
+
+        function checkAnswer(selectedAnswer) {
+            const correctAnswer = phrases[currentPhraseIndex].correct;
+            const buttons = document.querySelectorAll("button");
+            const phrase = phrases[currentPhraseIndex];
+
+            buttons.forEach(btn => {
+                if (btn.innerText === selectedAnswer) {
+                    if (selectedAnswer === correctAnswer) {
+                        btn.style.backgroundColor = "green";
+                        document.getElementById("english").innerHTML = 
+                            phrase.english.replace("________", `<span style="color: green;">${correctAnswer}</span>`) + " ✅"; // Onay işareti
+                        document.getElementById("result").innerText = "Doğru!";
+                        correctCount++;
+                    } else {
+                        btn.style.backgroundColor = "red";
+                        document.getElementById("english").innerHTML = 
+                            phrase.english.replace("________", `<span style="color: red;">${selectedAnswer}</span>`) + " ❌"; // Çarpı
+                        document.getElementById("result").innerText = "Yanlış!"; 
+                        incorrectCount++;
+                    }
+                    btn.disabled = true; // Seçimden sonra tüm butonları devre dışı bırak
+                }
+            });
+
+            updateScore();
+
+            if (selectedAnswer === correctAnswer) {
+                setTimeout(() => {
+                    currentPhraseIndex++;
+                    if (currentPhraseIndex < phrases.length) {
+                        loadPhrase();
+                    } else {
+                        alert("Cümle soruları tamamlandı!");
+                        switchToWordQuestions();
+                    }
+                }, 1000); // Bir saniye bekle
+            }
+        }
+
+        function checkWordAnswer(selectedAnswer) {
+            const correctAnswer = wordQuestions[currentWordIndex].answer;
+            const resultDiv = document.getElementById("result");
+
+            if (selectedAnswer === correctAnswer) {
+                resultDiv.innerText = "Doğru Cevap!";
+                correctCount++;
+            } else {
+                resultDiv.innerText = `Yanlış! Doğru Cevap: ${correctAnswer}`;
+                incorrectCount++;
+            }
+
+            updateScore();
+            currentWordIndex++;
+
+            if (currentWordIndex < wordQuestions.length) {
+                setTimeout(loadWordQuestion, 1000);
+            } else {
+                alert("Kelime soruları tamamlandı!");
+            }
+        }
+
+        function updateScore() {
+            document.getElementById("score").innerHTML = `
+                <span style="color: red; font-weight: bold; font-size: 28px;">${incorrectCount}</span> / 
+                <span style="color: green; font-weight: bold; font-size: 28px;">${correctCount}</span>
+            `;
+        }
+
+        function switchToWordQuestions() {
+            quizType = 'words';
+            currentWordIndex = 0;
+            loadWordQuestion();
+        }
+
+        window.onload = loadPhrase;
+    </script>
     <style>
         body {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            font-family: 'Arial', sans-serif;
         }
         h1 {
-            color: #007BFF;
+            text-align: center;
+            margin: 0;
+            font-size: 24px;
+            color: yellow;
+            margin-bottom: 56px;
         }
-        .back-button {
-            padding: 10px 20px;
-            margin-top: 20px;
+        .english {
+            font-size: 32px;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .turkish {
+            font-size: 28px;
+            color: yellow;
+        }
+        button {
+            margin: 10px;
+            padding: 15px;
             font-size: 16px;
             cursor: pointer;
             border: none;
+            background-color: white;
+            color: black;
             border-radius: 5px;
-            background-color: #007BFF;
-            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .back-button:hover {
-            background-color: #0056b3;
+        #score {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        #options {
+            list-style-type: none;
+            padding: 0;
         }
     </style>
 </head>
 <body>
-    <h1>Tacim - Test 1</h1>
-    <p>Bu sayfa Tacim için hazırlanmış Test 1 sayfasıdır.</p>
-    <button class="back-button" onclick="window.location.href='tacim.html'">Geri Dön</button>
+    <h1>
+        TACİME ÖZEL<br>
+        DERS ÇALIŞMASI
+    </h1>
+    <div id="score">0 / 0</div>
+    <h2 id="english" class="english">Cümle Burada</h2>
+    <h3 id="turkish" class="turkish">Türkçe Çeviri Burada</h3>
+    <div>
+        <button onclick="checkAnswer(document.getElementById('answer1').innerText)" id="answer1">Cevap 1</button>
+        <button onclick="checkAnswer(document.getElementById('answer2').innerText)" id="answer2">Cevap 2</button>
+        <button onclick="checkAnswer(document.getElementById('answer3').innerText)" id="answer3">Cevap 3</button>
+    </div>
+    <div id="result" style="margin-top: 20px; font-size: 20px;"></div>
+    <div id="options"></div>
 </body>
 </html>
