@@ -9,16 +9,24 @@
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: black;
+            color: white;
         }
         .question {
             font-size: 24px;
+            font-weight: bold;
+            color: yellow;
             margin-bottom: 20px;
         }
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
         .choices button {
-            display: block;
-            margin: 10px auto;
             padding: 10px 20px;
             font-size: 18px;
+            cursor: pointer;
         }
         .wrong {
             background-color: red;
@@ -53,7 +61,7 @@
         const questionDiv = document.querySelector('.question');
         const choicesDiv = document.querySelector('.choices');
         
-        questionDiv.textContent = `Kelime: ${question.word}`;
+        questionDiv.textContent = question.word;
         choicesDiv.innerHTML = '';
 
         question.options.forEach(option => {
