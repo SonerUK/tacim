@@ -7,10 +7,16 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
             background-color: black;
             color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
         }
         .question {
             font-size: 24px;
@@ -31,12 +37,17 @@
         .wrong {
             background-color: red;
         }
+        .correct {
+            background-color: green;
+        }
     </style>
 </head>
 <body>
 
-<div class="question"></div>
-<div class="choices"></div>
+<div class="container">
+    <div class="question"></div>
+    <div class="choices"></div>
+</div>
 
 <script>
     const questions = [
@@ -69,7 +80,8 @@
             button.textContent = option;
             button.onclick = () => {
                 if (option === question.correct) {
-                    showQuestion();
+                    button.classList.add('correct');
+                    setTimeout(showQuestion, 1000);
                 } else {
                     button.classList.add('wrong');
                 }
