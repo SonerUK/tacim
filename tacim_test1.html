@@ -3,138 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DERS ÇALIŞMASI</title>
-    <script>
-        const wordQuestions = [
-            { word: "Yapmak", answer: "Do", options: ["Make", "Do", "Create", "Build"] },
-            { word: "Gitmek", answer: "Go", options: ["Leave", "Go", "Come", "Arrive"] },
-            { word: "Gelmek", answer: "Come", options: ["Go", "Come", "Depart", "Return"] },
-            { word: "Görmek", answer: "See", options: ["Watch", "Look", "See", "View"] },
-            { word: "Duymak", answer: "Hear", options: ["Listen", "Hear", "Sound", "Noise"] },
-            { word: "Konuşmak", answer: "Speak", options: ["Talk", "Speak", "Discuss", "Chat"] },
-        ];
-
-        let correctCount = 0;
-        let incorrectCount = 0;
-
-        function loadRandomWordQuestion() {
-            const randomIndex = Math.floor(Math.random() * wordQuestions.length);
-            const question = wordQuestions[randomIndex];
-            document.getElementById("word").innerText = question.word;
-            const optionsList = document.getElementById("options");
-            optionsList.innerHTML = '';
-            question.options.forEach(option => {
-                const li = document.createElement('li');
-                li.innerHTML = `<button onclick="checkWordAnswer('${option}', this, '${question.answer}')">${option}</button>`;
-                optionsList.appendChild(li);
-            });
-            document.getElementById("result").innerText = ""; // Önceki sonucu temizle
-        }
-
-        function checkWordAnswer(selectedAnswer, button, correctAnswer) {
-            const resultDiv = document.getElementById("result");
-            button.disabled = true; // Seçenekler üzerinde değişiklik yapma
-
-            if (selectedAnswer === correctAnswer) {
-                resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>";
-                button.style.backgroundColor = "green";
-                correctCount++;
-                setTimeout(loadRandomWordQuestion, 500); // 2.5 saniye bekle
-            } else {
-                resultDiv.innerHTML = "YANLIŞ <span style='color: red;'>❌</span>";
-                button.style.backgroundColor = "red";
-                incorrectCount++;
-
-                // Yanlış cevap verildiğinde butonları işaretle
-                highlightIncorrectAnswers(correctAnswer);
-            }
-
-            updateScore();
-        }
-
-        function highlightIncorrectAnswers(correctAnswer) {
-            const buttons = document.querySelectorAll("#options button");
-            buttons.forEach(button => {
-                if (button.innerText === correctAnswer) {
-                    button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-                } else {
-                    button.disabled = false; // Diğer butonları aktif bırak
-                }
-            });
-
-            // Kullanıcı doğru cevabı seçene kadar bekle
-            buttons.forEach(button => {
-                button.onclick = function() {
-                    if (button.innerText === correctAnswer) {
-                        button.style.backgroundColor = "green"; // Doğru cevabı yeşil yap
-                        const resultDiv = document.getElementById("result");
-                        resultDiv.innerHTML = "DOĞRU <span style='color: green;'>✅</span>"; // Sonucu güncelle
-                        setTimeout(loadRandomWordQuestion, 2500); // Yeni soruyu yükle
-                    } else {
-                        button.style.backgroundColor = "red"; // Yanlış cevabı kırmızı yap
-                    }
-                };
-            });
-        }
-
-        function updateScore() {
-            document.getElementById("score").innerHTML = `
-                <span style="color: red; font-weight: bold; font-size: 28px;">${incorrectCount}</span> / 
-                <span style="color: green; font-weight: bold; font-size: 28px;">${correctCount}</span>
-            `;
-        }
-
-        window.onload = loadRandomWordQuestion;
-    </script>
+    <title>İngilizce Kelime Testi</title>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: black;
-            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .question {
             font-size: 24px;
-            font-family: 'Arial', sans-serif;
-        }
-        #word {
-            font-size: 48px;
-            color: yellow; /* Sarı renk */
-            font-weight: bold; /* Kalın font */
             margin-bottom: 20px;
         }
-        button {
-            margin: 10px;
-            padding: 15px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: white;
-            color: black;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .choices button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 18px;
         }
-        #score {
-            font-size: 28px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        #options {
-            list-style-type: none;
-            padding: 0;
-            display: flex; /* Şıkları yan yana yerleştirmek için */
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 24px; /* Daha büyük font boyutu */
+        .wrong {
+            background-color: red;
         }
     </style>
 </head>
 <body>
-    <div id="score">0 / 0</div>
-    <div id="word"></div>
-    <div id="options"></div>
-    <div id="result"></div>
+
+<div class="question"></div>
+<div class="choices"></div>
+
+<script>
+    const questions = [
+        { word: "Yapmak", correct: "Do", options: ["Make", "Do", "Create", "Build"] },
+        { word: "Gitmek", correct: "Go", options: ["Leave", "Go", "Come", "Arrive"] },
+        { word: "Gelmek", correct: "Come", options: ["Go", "Come", "Depart", "Return"] },
+        { word: "Görmek", correct: "See", options: ["Watch", "Look", "See", "View"] },
+        { word: "Duymak", correct: "Hear", options: ["Listen", "Hear", "Sound", "Noise"] },
+        { word: "Konuşmak", correct: "Speak", options: ["Talk", "Speak", "Discuss", "Chat"] },
+        { word: "Yazmak", correct: "Write", options: ["Print", "Write", "Type", "Scribble"] },
+        { word: "Okumak", correct: "Read", options: ["Look", "Read", "Scan", "Browse"] },
+        { word: "Oynamak", correct: "Play", options: ["Perform", "Play", "Act", "Engage"] },
+        { word: "Öğrenmek", correct: "Learn", options: ["Study", "Learn", "Teach", "Educate"] }
+    ];
+
+    function getRandomQuestion() {
+        return questions[Math.floor(Math.random() * questions.length)];
+    }
+
+    function showQuestion() {
+        const question = getRandomQuestion();
+        const questionDiv = document.querySelector('.question');
+        const choicesDiv = document.querySelector('.choices');
+        
+        questionDiv.textContent = `Kelime: ${question.word}`;
+        choicesDiv.innerHTML = '';
+
+        question.options.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.onclick = () => {
+                if (option === question.correct) {
+                    showQuestion();
+                } else {
+                    button.classList.add('wrong');
+                }
+            };
+            choicesDiv.appendChild(button);
+        });
+    }
+
+    showQuestion();
+</script>
+
 </body>
 </html>
